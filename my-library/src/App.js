@@ -3,51 +3,38 @@ import "./App.css";
 import Books from "./Books";
 import Events from "./Events";
 import LibraryInfo from "./LibraryInfo";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  NavLink,
+} from "react-router-dom";
 
 function App() {
-  const [currentPage, setCurrentPage] = React.useState("LibraryInfo");
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  let displayedComponent;
-  switch (currentPage) {
-    case "LibraryInfo":
-      displayedComponent = <LibraryInfo />;
-      break;
-    case "Books":
-      displayedComponent = <Books />;
-      break;
-    case "Events":
-      displayedComponent = <Events />;
-      break;
-    default:
-      displayedComponent = <LibraryInfo />;
-  }
   return (
-    <div className="App">
-      {/* Library Navigation Tabs */}
-      <nav>
-        <div>
-          <a href="#" onClick={() => handlePageChange("LibraryInfo")}>
-            About Us
-          </a>
-        </div>
-        <div>
-          <a href="#" onClick={() => handlePageChange("Books")}>
-            Books
-          </a>
-        </div>
-        <div>
-          <a href="#" onClick={() => handlePageChange("Events")}>
-            Events
-          </a>
-        </div>
-      </nav>
-      {/* Displayed Page Component */}
-      <div>{displayedComponent}</div>
-    </div>
+    <Router>
+      <div className="App">
+        <nav>
+          <ul>
+            <li>
+              <NavLink to="/LibraryInfo">About Us</NavLink>
+            </li>
+            <li>
+              <NavLink to="/Books">Books</NavLink>
+            </li>
+            <li>
+              <NavLink to="/Events">Events</NavLink>
+            </li>
+          </ul>
+        </nav>
+        <Routes>
+          <Route exact path="/LibraryInfo" component={LibraryInfo} />
+          <Route path="/Books" component={Books} />
+          <Route path="/Events" component={Events} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
